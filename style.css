@@ -9,6 +9,9 @@ body{
 }
 
 .boxcontainer div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-right: 5px solid black;
   border-top: 5px solid black;
 }
