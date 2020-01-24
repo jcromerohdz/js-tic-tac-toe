@@ -1,0 +1,21 @@
+body{
+  background-color: white;
+}
+
+.boxcontainer {
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  grid-template-rows: 100px 100px 100px;
+}
+
+.boder-left {
+
+}
+
+.boder-right {
+  border-right: 5px solid black;
+}
+
+.boder-top {
+
+}
