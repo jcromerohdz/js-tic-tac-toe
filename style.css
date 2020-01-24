@@ -8,14 +8,14 @@ body{
   grid-template-rows: 100px 100px 100px;
 }
 
-.boder-left {
-
-}
-
-.boder-right {
+.boxcontainer div {
   border-right: 5px solid black;
+  border-top: 5px solid black;
 }
 
-.boder-top {
-
+.boxcontainer div:nth-child(3n) {
+  border-right: none;
+}
+.boxcontainer div:nth-child(-n+3) {
+  border-top: none;
 }
