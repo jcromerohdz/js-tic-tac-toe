@@ -15,10 +15,13 @@
   <div class="container-fluid bg-dark">
     <div class="container text-light">
        <div class="row">
-       <div class="col-12 py-4">
-           <h1>Tic Tac Toe </h1>
-           <h2>Game on!</h2>
-       </div>
+         <div class="col-12 py-4">
+             <h1>Tic Tac Toe </h1>
+             <h2>Game on!</h2>
+         </div>
+         <div class="col-12 text-center">
+           <h3>Player1 vs Player2</h3>
+         </div>
        </div>
      </div>
    </div>
@@ -26,18 +29,49 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-12 d-flex justify-content-center">
-        <div class="boxcontainer">
-          <div class="example" data-id="0">O</div>
-          <div class="example" data-id="1">O</div>
-          <div class="example" data-id="2">O</div>
-          <div class="example" data-id="3">X</div>
-          <div class="example" data-id="4">X</div>
-          <div class="example" data-id="5">X</div>
-          <div class="example" data-id="6">O</div>
-          <div class="example" data-id="7">O</div>
-          <div class="example" data-id="8">O</div>
+      <div class="col-12 col-md-3">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+          <strong>Messages box!</strong>
+          <p id="messages-box">
+
+          </p>
         </div>
+      </div>
+      <div class="col-12 col-md-6 row">
+        <div class="col-12  d-flex justify-content-center">
+          <div class="boxcontainer">
+            <div class="example" data-id="0">O</div>
+            <div class="example" data-id="1">O</div>
+            <div class="example" data-id="2">O</div>
+            <div class="example" data-id="3">X</div>
+            <div class="example" data-id="4">X</div>
+            <div class="example" data-id="5">X</div>
+            <div class="example" data-id="6">O</div>
+            <div class="example" data-id="7">O</div>
+            <div class="example" data-id="8">O</div>
+          </div>
+        </div>
+        <div class="col-12 d-flex justify-content-center py-4 my-2">
+          <button type="button" class="btn btn-danger" name="button">reset game</button>
+        </div>
+      </div>
+      <div class="col-12 col-md-3">
+        <div class="form-group">
+          <label for="">Player 1</label>
+          <input type="text" name="" class="form-control" id="player1" value="">
+        </div>
+
+        <div class="form-group">
+          <label for="">Player 2</label>
+          <input type="text" name="" class="form-control" id="player2" value="">
+        </div>
+
+        <div class="form-group">
+          <button type="button" class="btn btn-success" name="button">
+            Set Names
+          </button>
+        </div>
+
       </div>
     </div>
   </div>

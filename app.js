@@ -6,31 +6,44 @@ const Player = (name, symbol) => {
   return {getName, getSymbol};
 };
 
-const domBoard = (()=>{
-  let dom = document.querySelectorAll('.boxcontainer div');
-  let forAll = (callback) => {
-    dom.forEach((item) => {
-      callback(item)
-    });
-    return dom;
-  }
+const dom = (()=>{
+  const board = (()=>{
+    let dom = document.querySelectorAll('.boxcontainer div');
+    let forAll = (callback) => {
+      dom.forEach((item) => {
+        callback(item)
+      });
+      return dom;
+    }
 
-  let setPosition = (position, content) => {
-    dom[position].innerHTML = content;
-  }
+    let setPosition = (position, content) => {
+      dom[position].innerHTML = content;
+    }
 
-  return {forAll, setPosition}
+    return {forAll, setPosition}
+  })();
+
+  const messagebox = (()=>{
+    let dom = document.querySelector('#messages-box');
+    let setMessage = (message) => {
+      return dom.innerHTML = message;
+    }
+
+    return {setMessage}
+  })();
+
+  return {board, messagebox};
 })();
 
 const gameBoard = (() => {
     let board = new Array(9).fill(null);
     let getBoard = () => board;
-    let clear = ()  => domBoard.forAll(x=> x.innerHTML = '');
+    let clear = ()  => dom.board.forAll(x=> x.innerHTML = '');
 
     let setMove = (player, position) => {
       if (!board[position]) {
         board[position] = player.getSymbol();
-        domBoard.setPosition(position, player.getSymbol());
+        dom.board.setPosition(position, player.getSymbol());
         return true;
       }else{
         return false;
@@ -58,6 +71,7 @@ const gameFlow = (() => {
   let player_1;
   let player_2;
   let currentPlayer;
+  let winner = false;
 
   let startGame = () => {
 
@@ -69,23 +83,23 @@ const gameFlow = (() => {
   }
 
   let move = () => {
-
+    if (!winner) {
       if (gameBoard.setMove(currentPlayer, event.target.dataset.id)){
-          let winner = gameBoard.gameOver(event.target.dataset.id, currentPlayer)
-          currentPlayer = currentPlayer == player_1 ? player_2  : player_1;
-          console.log(winner);
+        winner = gameBoard.gameOver(event.target.dataset.id, currentPlayer)
+        currentPlayer = currentPlayer == player_1 ? player_2  : player_1;
+        if (winner) dom.messagebox.setMessage(`The winner is ${winner.getName()}`);
       }
-
+    }
   }
 
   return {move, startGame};
 
 })();
-//document.querySelector('.button.cancel').addEventListener('click', closeModal);
-domBoard.forAll(x => {
+
+
+
+dom.board.forAll(x => {
   x.addEventListener('click', gameFlow.move);
 });
-
-
 gameBoard.clear();
 gameFlow.startGame();
