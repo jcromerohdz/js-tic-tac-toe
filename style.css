@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
 body{
   background-color: white;
 }
@@ -8,7 +10,14 @@ body{
   grid-template-rows: 100px 100px 100px;
 }
 
+.not-alowed {
+  cursor: not-allowed;
+}
+
 .boxcontainer div {
+  cursor:pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
