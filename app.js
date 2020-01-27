@@ -2,8 +2,9 @@ const Player = (name, symbol) => {
 
   let getName = () => name;
   let getSymbol = () => symbol;
+  let setName = (playerName) => name=playerName;
 
-  return {getName, getSymbol};
+  return {getName, getSymbol, setName};
 };
 
 const dom = (()=>{
@@ -38,7 +39,10 @@ const dom = (()=>{
 const gameBoard = (() => {
     let board = new Array(9).fill(null);
     let getBoard = () => board;
-    let clear = ()  => dom.board.forAll(x=> x.innerHTML = '');
+    let clear = ()  => {
+      dom.board.forAll(x=> x.innerHTML = '');
+      board = new Array(9).fill(null);
+    };
 
     let setMove = (player, position) => {
       if (!board[position]) {
@@ -75,9 +79,11 @@ const gameFlow = (() => {
 
   let startGame = () => {
 
-    player_1 = Player('Christian', 'X');
+    player_1 = Player('Player 1', 'X');
     currentPlayer = player_1;
-    player_2 = Player('Luis', 'O');
+    player_2 = Player('Player 2', 'O');
+
+
 
     return true;
   }
@@ -92,7 +98,17 @@ const gameFlow = (() => {
     }
   }
 
-  return {move, startGame};
+  let setPlayers = () => {
+    if (event.target.id == 'player1'){
+      player_1.setName(event.target.value);
+    }else{
+      player_2.setName(event.target.value);
+    }
+
+    document.querySelector('#players').innerHTML = `${player_1.getName()} VS ${player_2.getName()}`;
+  }
+
+  return {move, startGame, setPlayers};
 
 })();
 
@@ -101,5 +117,21 @@ const gameFlow = (() => {
 dom.board.forAll(x => {
   x.addEventListener('click', gameFlow.move);
 });
+
+clearBtn = document.querySelector(".btn.btn-danger");
+
+clearBtn.addEventListener('click', () => {
+  gameBoard.clear();
+  document.querySelector("#player1").value='';
+  document.querySelector("#player2").value='';
+});
+
+let player1 = document.querySelector("#player1")
+player1.addEventListener('keydown', gameFlow.setPlayers);
+
+let player2 = document.querySelector("#player2")
+player2.addEventListener('keydown', gameFlow.setPlayers);
+
+
 gameBoard.clear();
 gameFlow.startGame();
