@@ -78,12 +78,13 @@ const gameFlow = (() => {
   let winner = false;
 
   let startGame = () => {
-
     player_1 = Player('Player 1', 'X');
     currentPlayer = player_1;
     player_2 = Player('Player 2', 'O');
-
-
+    gameBoard.clear();
+    document.querySelector("#player1").value='';
+    document.querySelector("#player2").value='';
+    dom.messagebox.setMessage(`Welcome to the game, the first turn is for ${player_1.getName()}`);
 
     return true;
   }
@@ -94,6 +95,11 @@ const gameFlow = (() => {
         winner = gameBoard.gameOver(event.target.dataset.id, currentPlayer)
         currentPlayer = currentPlayer == player_1 ? player_2  : player_1;
         if (winner) dom.messagebox.setMessage(`The winner is ${winner.getName()}`);
+          else {
+            if (!gameBoard.getBoard().includes(null)) {
+              dom.messagebox.setMessage(`Ohh, it's a draw`);
+            } else dom.messagebox.setMessage(`Next turn is for ${currentPlayer.getName()}`);
+          }
       }
     }
   }
@@ -104,7 +110,7 @@ const gameFlow = (() => {
     }else{
       player_2.setName(event.target.value);
     }
-
+    dom.messagebox.setMessage(`Next turn is for ${currentPlayer.getName()}`);
     document.querySelector('#players').innerHTML = `${player_1.getName()} VS ${player_2.getName()}`;
   }
 
@@ -120,18 +126,10 @@ dom.board.forAll(x => {
 
 clearBtn = document.querySelector(".btn.btn-danger");
 
-clearBtn.addEventListener('click', () => {
-  gameBoard.clear();
-  document.querySelector("#player1").value='';
-  document.querySelector("#player2").value='';
-});
+clearBtn.addEventListener('click', gameFlow.startGame);
 
-let player1 = document.querySelector("#player1")
-player1.addEventListener('keydown', gameFlow.setPlayers);
+document.querySelector("#player1").addEventListener('keyup', gameFlow.setPlayers);
 
-let player2 = document.querySelector("#player2")
-player2.addEventListener('keydown', gameFlow.setPlayers);
+document.querySelector("#player2").addEventListener('keyup', gameFlow.setPlayers);
 
-
-gameBoard.clear();
 gameFlow.startGame();
